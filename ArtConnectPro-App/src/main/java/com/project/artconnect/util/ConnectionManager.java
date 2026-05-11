@@ -16,9 +16,17 @@ public class ConnectionManager {
      * @throws SQLException if connection fails
      */
     public static Connection getConnection() throws SQLException {
-        // TODO: Students should implement this using DatabaseConfig properties
-        // return DriverManager.getConnection(DatabaseConfig.URL, DatabaseConfig.USER,
-        // DatabaseConfig.PASSWORD);
-        throw new UnsupportedOperationException("Database connection logic not yet implemented.");
+        try {
+            // Ensure the JDBC driver is loaded (optional for modern JDBC, but good practice)
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.err.println("MySQL JDBC Driver not found.");
+            e.printStackTrace();
+        }
+        return java.sql.DriverManager.getConnection(
+            com.project.artconnect.config.DatabaseConfig.URL, 
+            com.project.artconnect.config.DatabaseConfig.USER,
+            com.project.artconnect.config.DatabaseConfig.PASSWORD
+        );
     }
 }

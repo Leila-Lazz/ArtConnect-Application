@@ -8,18 +8,18 @@ import com.project.artconnect.service.impl.*;
  * initialization.
  */
 public class ServiceProvider {
-    private static final InMemoryArtistService artistService = new InMemoryArtistService();
-    private static final InMemoryArtworkService artworkService = new InMemoryArtworkService();
-    private static final InMemoryGalleryService galleryService = new InMemoryGalleryService();
-    private static final InMemoryWorkshopService workshopService = new InMemoryWorkshopService();
-    private static final InMemoryCommunityService communityService = new InMemoryCommunityService();
+    private static final ArtistService artistService = new JdbcArtistService(new com.project.artconnect.persistence.JdbcArtistDao());
+    private static final ArtworkService artworkService = new JdbcArtworkService(new com.project.artconnect.persistence.JdbcArtworkDao());
+    private static final GalleryService galleryService = new com.project.artconnect.service.impl.InMemoryGalleryService();
+    private static final WorkshopService workshopService = new com.project.artconnect.service.impl.InMemoryWorkshopService();
+    private static final CommunityService communityService = new com.project.artconnect.service.impl.InMemoryCommunityService();
 
     static {
-        // Initialize services with their dependencies
-        artworkService.initData(artistService);
-        galleryService.initData(artworkService);
-        workshopService.initData(artistService);
-        communityService.initData(artworkService);
+        // Initialization not strictly needed for DB since it pulls data directly,
+        // but kept to satisfy structure if necessary.
+        ((com.project.artconnect.service.impl.InMemoryGalleryService) galleryService).initData(artworkService);
+        ((com.project.artconnect.service.impl.InMemoryWorkshopService) workshopService).initData(artistService);
+        ((com.project.artconnect.service.impl.InMemoryCommunityService) communityService).initData(artworkService);
     }
 
     public static ArtistService getArtistService() {
