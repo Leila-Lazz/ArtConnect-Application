@@ -33,12 +33,13 @@ Unlike typical database-centric skeletons, ArtConnect Pro follows strict OOP bes
 - **Bidirectional Links**: Many relationships are bidirectional (e.g., an `Artist` has a `List<Artwork>`, and each `Artwork` points back to its `Artist`).
 - **No Junction Tables**: Many-to-Many relationships (like Exhibitions and Artworks) are modeled using simple collections (`List<Artwork>`) rather than separate junction classes.
 
-## Student Tasks (The Challenge)
-1. **ID Discovery**: Students must "discover" or create IDs at the database level. Your JDBC DAOs will need to map database IDs (Primary Keys) to Java object references during the `findAll` or `save` operations.
-2. **Relational Mapping**: You must implement the logic to reconstruct the object graph from relational tables. When fetching an `Artwork`, you must also fetch/link the corresponding `Artist`.
-3. **Database Setup**: Create the MySQL database and tables as per the technical requirements (including IDs and Foreign Keys that are NOT visible in the Java models).
-4. **JDBC Implementation**: Implement the `Jdbc` DAO classes in `com.project.artconnect.persistence`.
-5. **Service Swap**: Update `ServiceProvider` to use your new `Jdbc` DAOs.
+## Student Tasks (Completed)
+✅ **ID Discovery**: Database primary keys are correctly mapped to Java objects via DAO.
+✅ **Relational Mapping**: Reconstructed the object graph mapping foreign keys via `JdbcArtistDao` and `JdbcArtworkDao`.
+✅ **Database Setup**: MySQL database (`artconnect`) and tables are created with proper constraints.
+✅ **JDBC Implementation**: DAO classes like `JdbcArtistDao` have been fully implemented with CRUD operations.
+✅ **Service Swap**: `ServiceProvider` updated to use persistent JDBC DAOs instead of InMemory mocks.
+✅ **UI Integration (Step 5)**: The JavaFX UI now features fully functional CRUD forms for managing the database.
 
 ## Architecture Diagram
 ```mermaid
