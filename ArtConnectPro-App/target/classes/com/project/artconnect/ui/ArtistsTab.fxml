@@ -22,4 +22,20 @@
             <TableColumn fx:id="yearColumn" text="Birth Year" prefWidth="100" />
         </columns>
     </TableView>
+
+    <!-- CRUD Form Section -->
+    <VBox spacing="10.0" style="-fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-border-radius: 5;">
+        <Label text="Manage Artist" style="-fx-font-weight: bold;" />
+        <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <TextField fx:id="nameInput" promptText="Name" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="cityInput" promptText="City" prefWidth="150" />
+            <TextField fx:id="emailInput" promptText="Email" prefWidth="200" />
+            <TextField fx:id="yearInput" promptText="Birth Year" prefWidth="100" />
+        </HBox>
+        <HBox spacing="10.0" alignment="CENTER_RIGHT">
+            <Button text="Add" onAction="#handleAdd" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+            <Button text="Update" onAction="#handleUpdate" style="-fx-background-color: #2196F3; -fx-text-fill: white;" />
+            <Button text="Delete" onAction="#handleDelete" style="-fx-background-color: #F44336; -fx-text-fill: white;" />
+        </HBox>
+    </VBox>
 </VBox>

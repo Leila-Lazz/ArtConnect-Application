@@ -25,6 +25,16 @@ public class ArtistController {
     @FXML
     private TableColumn<Artist, Integer> yearColumn;
 
+    // CRUD Form Fields
+    @FXML
+    private TextField nameInput;
+    @FXML
+    private TextField cityInput;
+    @FXML
+    private TextField emailInput;
+    @FXML
+    private TextField yearInput;
+
     private final ArtistService artistService = ServiceProvider.getArtistService();
 
     @FXML
@@ -36,6 +46,28 @@ public class ArtistController {
 
         disciplineFilter.setItems(FXCollections.observableArrayList(artistService.getAllDisciplines()));
         refreshTable();
+
+        // Listen for selection changes and show the artist details in the form.
+        artistTable.getSelectionModel().selectedItemProperty().addListener(
+            (observable, oldValue, newValue) -> populateForm(newValue));
+    }
+
+    private void populateForm(Artist artist) {
+        if (artist != null) {
+            nameInput.setText(artist.getName());
+            cityInput.setText(artist.getCity() != null ? artist.getCity() : "");
+            emailInput.setText(artist.getContactEmail() != null ? artist.getContactEmail() : "");
+            yearInput.setText(artist.getBirthYear() != null ? String.valueOf(artist.getBirthYear()) : "");
+        } else {
+            clearForm();
+        }
+    }
+
+    private void clearForm() {
+        nameInput.clear();
+        cityInput.clear();
+        emailInput.clear();
+        yearInput.clear();
     }
 
     @FXML
@@ -51,6 +83,43 @@ public class ArtistController {
         searchField.clear();
         disciplineFilter.setValue(null);
         refreshTable();
+        clearForm();
+    }
+
+    @FXML
+    private void handleAdd() {
+        if (nameInput.getText().isEmpty()) return;
+        
+        Integer year = yearInput.getText().isEmpty() ? null : Integer.parseInt(yearInput.getText());
+        Artist newArtist = new Artist(nameInput.getText(), "", year, emailInput.getText(), cityInput.getText());
+        
+        artistService.createArtist(newArtist);
+        refreshTable();
+        clearForm();
+    }
+
+    @FXML
+    private void handleUpdate() {
+        Artist selected = artistTable.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+
+        selected.setCity(cityInput.getText());
+        selected.setContactEmail(emailInput.getText());
+        selected.setBirthYear(yearInput.getText().isEmpty() ? null : Integer.parseInt(yearInput.getText()));
+        
+        // Note: Primary key (name) usually shouldn't be changed, but we update other fields.
+        artistService.updateArtist(selected);
+        refreshTable();
+    }
+
+    @FXML
+    private void handleDelete() {
+        Artist selected = artistTable.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+
+        artistService.deleteArtist(selected.getName());
+        refreshTable();
+        clearForm();
     }
 
     private void refreshTable() {

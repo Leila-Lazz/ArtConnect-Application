@@ -32,10 +32,12 @@ com/project/artconnect/dao/ExhibitionDao.class
 com/project/artconnect/model/Workshop.class
 com/project/artconnect/model/Booking.class
 com/project/artconnect/service/impl/InMemoryArtistService.class
+com/project/artconnect/service/impl/JdbcArtworkService.class
 com/project/artconnect/model/Exhibition.class
 com/project/artconnect/service/ArtistService.class
 com/project/artconnect/ui/CommunityController.class
 com/project/artconnect/ui/GalleryController$1.class
+com/project/artconnect/service/impl/JdbcArtistService.class
 com/project/artconnect/service/GalleryService.class
 com/project/artconnect/ui/DiscoverController$1.class
 com/project/artconnect/service/impl/InMemoryGalleryService.class
