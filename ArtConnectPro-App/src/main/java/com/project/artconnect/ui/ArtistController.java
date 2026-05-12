@@ -88,10 +88,15 @@ public class ArtistController {
 
     @FXML
     private void handleAdd() {
-        if (nameInput.getText().isEmpty()) return;
+        String name = nameInput.getText().trim();
+        if (name.isEmpty()) {
+            return; // Name is required
+        }
         
-        Integer year = yearInput.getText().isEmpty() ? null : Integer.parseInt(yearInput.getText());
-        Artist newArtist = new Artist(nameInput.getText(), "", year, emailInput.getText(), cityInput.getText());
+        String yearText = yearInput.getText().trim();
+        Integer year = yearText.isEmpty() ? null : Integer.parseInt(yearText);
+        
+        Artist newArtist = new Artist(name, "", year, emailInput.getText().trim(), cityInput.getText().trim());
         
         artistService.createArtist(newArtist);
         refreshTable();
