@@ -86,6 +86,9 @@ public class ArtistController {
         clearForm();
     }
 
+    /**
+     * Handles the creation of a new Artist from the input form fields.
+     */
     @FXML
     private void handleAdd() {
         String name = nameInput.getText().trim();
@@ -103,6 +106,9 @@ public class ArtistController {
         clearForm();
     }
 
+    /**
+     * Handles updating the currently selected Artist using data from the input form fields.
+     */
     @FXML
     private void handleUpdate() {
         Artist selected = artistTable.getSelectionModel().getSelectedItem();
@@ -117,6 +123,9 @@ public class ArtistController {
         refreshTable();
     }
 
+    /**
+     * Handles deleting the currently selected Artist from the persistent storage.
+     */
     @FXML
     private void handleDelete() {
         Artist selected = artistTable.getSelectionModel().getSelectedItem();
